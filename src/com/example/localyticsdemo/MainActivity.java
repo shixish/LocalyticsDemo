@@ -17,7 +17,9 @@ package com.example.localyticsdemo;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
+
 
 //Step 1: Import the class by adding the following to the top of your main activity.
 import com.localytics.android.*;
@@ -46,6 +48,10 @@ public class MainActivity extends Activity {
 	 
 	    // At this point, Localytics Initialization is done.  After uploads complete nothing
 	    // more will happen due to Localytics until the next time you call it.
+	    
+	    
+	    // Fire off a custom event tag:
+	    this.localyticsSession.tagEvent("demo application start");
 	}
 
 	@Override
@@ -61,6 +67,7 @@ public class MainActivity extends Activity {
 	 *  onResume without passing through onCreate and therefore, the open call needs to appear here as 
 	 *  well. If it is called twice for an already open session it will be ignored.
 	 */
+	@Override
 	public void onResume() {
 	    super.onResume();
 	    this.localyticsSession.open();
@@ -71,6 +78,7 @@ public class MainActivity extends Activity {
 	 *  onPause is the last state which is guaranteed to be called so it makes the most sense for the close call. 
 	 *  This may cause multiple close events to occur but only the final close is honored.
 	 */
+	@Override
 	public void onPause() {
 	    this.localyticsSession.close();
 	    this.localyticsSession.upload();
